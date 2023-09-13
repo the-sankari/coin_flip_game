@@ -7,15 +7,53 @@
   </head>
   <body>
     <h3>Coin Flip Game</h3>
-<button onclick="flipCoin()">Flip the Coin</button>
+    <div class="toss">
+      <button
+        onclick="
+        playGame('heads');
+        "
+      >
+        heads
+      </button>
+      <button
+        onclick="
+      playGame('tails');
+      "
+      >
+        tails
+      </button>
+    </div>
+
+    <br /><br />
+    <button onclick="
+    resetScore();
+    ">Reset</button>
     <script>
-      function flipCoin() {
-        
+      const score = JSON.parse(localStorage.getItem("score")) || {
+        wins: 0,
+        looses: 0,
+      };
+
+      function playGame(guess) {
         const number = Math.random();
-        const result = number < 0.5 ? 'heads' : 'tails';
-        const guess = 'heads';
-        console.log(guess === result ? 'You win!' : 'You loose!')
+        const result = number < 0.5 ? "heads" : "tails";
+        console.log(guess === result ? "You win!" : "You loose!");
+
+        if (guess === result) {
+          score.wins++;
+        } else {
+          score.looses++;
+        }
+        console.log(score);
+
+        localStorage.setItem("score", JSON.stringify(score));
       }
+function resetScore() {
+  score.wins =0;
+  score.looses =0;
+  console.log(`Score board Reset done!
+  Wins: ${score.wins}, Looses: ${score.looses} `)
+}
       // let result = "";
       // if (number < 0.5) {
       //   result = "heads";
@@ -32,8 +70,6 @@
       // } else {
       //   console.log(`You loose`);
       // }
-
-
     </script>
   </body>
 </html>
